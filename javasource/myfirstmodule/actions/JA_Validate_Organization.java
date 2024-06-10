@@ -14,37 +14,37 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
-public class JA_Validate_Organization extends CustomJavaAction<java.lang.Boolean>
+public class JA_Validate_Organization extends CustomJavaAction<java.lang.String>
 {
 	/** @deprecated use Organization.getMendixObject() instead. */
 	@java.lang.Deprecated(forRemoval = true)
 	private final IMendixObject __Organization;
-	private final myfirstmodule.proxies.Oganization Organization;
-	private final java.lang.Boolean IsValid;
+	private final myfirstmodule.proxies.Organization Organization;
+	private final java.lang.String ValidationMessage;
 
 	public JA_Validate_Organization(
 		IContext context,
 		IMendixObject _organization,
-		java.lang.Boolean _isValid
+		java.lang.String _validationMessage
 	)
 	{
 		super(context);
 		this.__Organization = _organization;
-		this.Organization = _organization == null ? null : myfirstmodule.proxies.Oganization.initialize(getContext(), _organization);
-		this.IsValid = _isValid;
+		this.Organization = _organization == null ? null : myfirstmodule.proxies.Organization.initialize(getContext(), _organization);
+		this.ValidationMessage = _validationMessage;
 	}
 
 	@java.lang.Override
-	public java.lang.Boolean executeAction() throws Exception
+	public java.lang.String executeAction() throws Exception
 	{
 		// BEGIN USER CODE
         String organizationName = this.Organization.getName();
         String location = this.Organization.getLocation();
 
         if (organizationName != null && !organizationName.isEmpty() && location != null && !location.isEmpty()) {
-            return IsValid; 
+            return ValidationMessage; 
         }else {
-            return false;
+            return "Value is empty";
         }
 		// END USER CODE
 	}
